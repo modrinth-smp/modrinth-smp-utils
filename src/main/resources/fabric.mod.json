@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "modrinth-smp",
+  "version": "${version}",
+  "name": "Modrinth SMP",
+  "description": "",
+  "authors": [],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/modrinth-smp/icon.png",
+  "environment": "server",
+  "entrypoints": {
+    "main": [
+      "io.github.modrinthsmp.modrinthsmp.ModrinthSmp"
+    ]
+  },
+  "mixins": [
+    "modrinth-smp.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.14.10",
+    "fabric": "*",
+    "minecraft": "1.18.2"
+  }
+}
