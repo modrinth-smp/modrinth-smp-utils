@@ -2,13 +2,11 @@ package io.github.modrinthsmp.modrinthsmp.mixin;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.explosion.Explosion;
 import net.minecraft.world.explosion.ExplosionBehavior;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -17,10 +15,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ServerWorld.class)
 public abstract class MixinServerWorld {
-    @Shadow public abstract BlockPos getSpawnPos();
-
-    @Shadow public abstract MinecraftServer getServer();
-
     @Unique
     private double msu$msw$explosionX;
     @Unique
@@ -56,10 +50,10 @@ public abstract class MixinServerWorld {
     }
 
     private boolean spawnProtected() {
-        final BlockPos spawnPos = getSpawnPos();
+        final BlockPos spawnPos = ((ServerWorld)(Object)this).getSpawnPos();
         final double distanceX = Math.abs(msu$msw$explosionX - spawnPos.getX());
         final double distanceZ = Math.abs(msu$msw$explosionZ - spawnPos.getZ());
         final double distance = Math.max(distanceX, distanceZ);
-        return distance <= getServer().getSpawnProtectionRadius();
+        return distance <= ((ServerWorld)(Object)this).getServer().getSpawnProtectionRadius();
     }
 }
