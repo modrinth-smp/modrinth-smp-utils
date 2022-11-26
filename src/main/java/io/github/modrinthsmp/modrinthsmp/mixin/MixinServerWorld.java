@@ -1,5 +1,6 @@
 package io.github.modrinthsmp.modrinthsmp.mixin;
 
+import io.github.modrinthsmp.modrinthsmp.ModrinthSmp;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.server.world.ServerWorld;
@@ -54,6 +55,6 @@ public abstract class MixinServerWorld {
         final double distanceX = Math.abs(msu$msw$explosionX - spawnPos.getX());
         final double distanceZ = Math.abs(msu$msw$explosionZ - spawnPos.getZ());
         final double distance = Math.max(distanceX, distanceZ);
-        return distance <= ((ServerWorld)(Object)this).getServer().getSpawnProtectionRadius();
+        return distance <= ModrinthSmp.getConfig().getExplosionSpawnRadius();
     }
 }
